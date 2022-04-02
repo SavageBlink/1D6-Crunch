@@ -25,9 +25,22 @@ def optimise(parsed, startNode, endNode):
 	return r
 
 # Driver Code
-if __name__=='__main__':
+"""if __name__=='__main__':
 	r = optimise(Parsing("consommation_jeu_de_donnee.txt"), 1, 10000)
 	c = 0
 	for i in range(len(r)):
 		c = c + r[i][2]
 	print("Consumption: ", c)
+	print(r)"""
+
+def formatOptimise(start,end,filename= None):
+	if(filename == None):
+		filename = "consommation_jeu_de_donnee_faux.txt"
+	print("In formatOptimise")
+	r = optimise(Parsing(filename), start, end)
+	c = 0
+	for i in range(len(r)):
+		c = c + r[i][2]
+	#print("Consumption: ", c)
+	print("returning r...")
+	return r

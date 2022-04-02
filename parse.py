@@ -1,5 +1,7 @@
 
-def Parsing(sFile):
+def Parsing(sFile = None):
+    if(sFile == None):
+        sFile = "consommation_jeu_de_donnee.txt"
     #Initialisation variables
     NombreNoeuds = 0;
     Coordonnee = [[], []]
@@ -43,24 +45,24 @@ def Parsing(sFile):
 #        print(distance[y])
     return data
 
+"""Replace for loop by a while loop
+def getNodeFromCoorParsing(x,y,filename):
 
-def RechercheNoeud(CoordonneeX1, CoordonneeY1):
+    data = Parsing(filename)
+    nbNodes = len(data["CoordinateX"])
 
-    DonneeParsing = Parsing("consommation_jeu_de_donnee.txt")
-    NombreNoeuds = len(DonneeParsing["CoordinateX"])
+    for y in range(0, nbNodes):
+            if(X == float(data["CoordinateX"][y])):
+                if(Y == float(data["CoordinateY"][y])):
 
-    for y in range(0, NombreNoeuds):
-            if(CoordonneeX1 == float(DonneeParsing["CoordinateX"][y])):
-                if(CoordonneeY1 == float(DonneeParsing["CoordinateY"][y])):
-
-                    Noeud = y;
+                    node = y;
                 break;
 
-    return Noeud + 1
+    return node + 1"""
 
-
-Noeud1 = RechercheNoeud(24.1472, 17.9533)
-#Noeud2 = RechercheNoeud(23.6731, 19.0991)
-print(Noeud1)
-
-
+def getCoordFromNodeParsing(node,filename):
+    data = Parsing(filename)
+    return [float(data["CoordinateX"][node]),float(data["CoordinateY"][node])]
+    """    i = 0
+        while(int(data["noeudStart"][i]) != node or int(data["noeudEnd"][i]) != node):
+            i+=1"""
