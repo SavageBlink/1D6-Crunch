@@ -1,7 +1,6 @@
 
-def Parsing():
+def Parsing(s):
     #Initialisation variables
-    i = 0;
     Coordonnee = [[], []]
     Coor = 0
     noeud = [[], []]
@@ -9,6 +8,9 @@ def Parsing():
     vitesse = []
     pente = []
     consommation = []
+    #Create a dictionnary
+    data = {"CoordinateX": Coordonnee[0], "CoordinateY": Coordonnee[1], "noeudStart": noeud[0] , "noeudEnd": noeud[1],
+            "distance": distance, "speed": vitesse, "slope": consommation}
     #open the consommation file
     with open("consommation_jeu_de_donnee.txt", 'r') as f:
         for line in f:
@@ -32,7 +34,7 @@ def Parsing():
                     pente.append(Value.split(";", 5)[4])
                     consommation.append(Value.split(";", 5)[5])
         f.close()
+
 #    for y in range(0, 25000):
 #        print(distance[y])
-    return Coordonnee, noeud, distance, vitesse, consommation
-
+    return data[s]
