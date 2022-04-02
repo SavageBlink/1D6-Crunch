@@ -1,4 +1,4 @@
-
+# s renvoie le type de donnée à récupérer, les mots clefs sont dans le dictionnaire "data"
 def Parsing(s):
     #Initialisation variables
     Coordonnee = [[], []]
@@ -33,7 +33,6 @@ def Parsing(s):
                     vitesse.append(Value.split(";", 5)[3])
                     pente.append(Value.split(";", 5)[4])
                     consommation.append(Value.split(";", 5)[5])
-        f.close()
 
 #    for y in range(0, 25000):
 #        print(distance[y])
