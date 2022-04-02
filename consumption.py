@@ -1,5 +1,5 @@
 from parse import *
-
+from global_variable import *
 import math
 
 
@@ -8,14 +8,14 @@ import math
 # -> change 2 file paths if necessary
 def add_consumption(consumption):
 
-    path_of_reading_file = "Data/jeu_de_donne_sans_conso.txt"
-    path_of_output_file = "Data/jeu_de_donne_avec_conso.txt"
+    path_of_reading_file = "jeu_de_donne_sans_conso.txt"
+    path_of_output_file = "consommation_jeu_de_donnee.txt"
     is_arch = False
     i = 0
     with open(path_of_reading_file, 'r') as istr:
         with open(path_of_output_file, 'w') as ostr:
             for line in istr:
-                if line == "Arcs:\n":
+                if line == global_arch_data_separator:
                     is_arch = True
                     continue
                 if is_arch:  # If it's an arc, we add the consumption at the end
@@ -27,12 +27,12 @@ def add_consumption(consumption):
 
 # Return the calculation of the consumption by using a formula and parse functions
 def consumption_calculation():
-    data = Parsing("consommation_jeu_de_donnee.txt")
+    data = Parsing(global_file)
     v = [float(x) for x in data["speed"]]
     d = [float(x) for x in data["distance"]]
     p = [float(x) for x in data["pente"]]  # A METTRE EN RADIANT
     # consumption = [float(x) for x in parsed["consommation"]]
-    m = 1000.0  # default mass
+    m = global_mass  # default mass
     number_of_archs = len(d)
     consumption = []
 
@@ -44,9 +44,3 @@ def consumption_calculation():
 
 
     return consumption
-
-
-# Conso à initialiser avec le parsing du fichier et la formule
-#add_consumption(consumption_calculation())
-add_consumption(consumption_calculation())
-

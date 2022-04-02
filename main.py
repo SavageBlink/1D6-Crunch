@@ -1,6 +1,15 @@
 import drawingUtils
 import parse
 import optimise
+from consumption import *
+
+# Generate consumption data
+add_consumption(consumption_calculation())
+
+# Generate file with energy consumption
+
+
+
 
 points_a = [[1,50], [1.2,50.3], [1.23, 50.7],[1,50.3]]
 points_b = [[3,60], [2.2,60.3], [2.23, 51.7],[2,51.3]]
