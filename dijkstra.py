@@ -31,6 +31,11 @@ class Node:
 # vertex to the destination vertex
 # returns dist = [distnode1, distnode2, ...], path = [previousnode1, previousnode2, ...]
 def dijkstraDist(network, startNode):
+	for i in range(len(network)):
+		if network[i].vertexNumber == startNode:
+			startNode = i
+			break
+	
 	# Stores distance of each
 	# vertex from source vertex
 	path = []
@@ -89,31 +94,22 @@ def dijkstraDist(network, startNode):
 		current = index
 	return dist, path
 
-# Function to print the path
-# from the source vertex to
-# the destination vertex
-def printPath(path, i, s):
-	if i != s:
-		# Condition to check if
-		# there is no path between
-		# the vertices
-		if (path[i] == -1):
-			print("Path not found!!")
-			return
-		printPath(path, path[i], s)
-		print(str(path[i]) + " ")
-
-def getPath(path, startNode, destNode):
+def getPath(network, path, startNode, destNode):
 	if destNode == startNode:
 		return [startNode]
 	else:
 		# Condition to check if
 		# there is no path between
 		# the vertices
-		if (path[destNode] == -1):
+		destIndex = None
+		for i in range(len(network)):
+			if network[i].vertexNumber == destNode:
+				destIndex = i
+				break
+		if (path[destIndex] == -1):
 			return []; # path not found
 		else:
-			p = getPath(path, startNode, path[destNode])
+			p = getPath(network, path, startNode, network[path[destIndex]].vertexNumber)
 			p.append(destNode)
 			return p
 
@@ -128,43 +124,44 @@ def parseNetwork(nodes, arcs):
 	
 	# Loop to create the nodes
 	for i in range(len(nodes)):
-		a = Node(nodes[i])
-		network.append(a)
+		network.append(Node(nodes[i]))
 	
-	for i in range(len(arcs)):
-		if network[arcs[i][0]] and network[arcs[i][1]]:
-			network[arcs[i][0]].Add_child(arcs[i][1], arcs[i][2])
+	for i in range(len(nodes)):
+		for j in range(len(arcs)):
+			if arcs[j][0] == nodes[i]:
+				network[i].Add_child(nodes.index(arcs[j][1]), arcs[j][2])
 	
 	return network
 
 # Driver Code
 if __name__=='__main__':
-	nodes = [0, 1, 2, 3, 4]
+	nodes = [0, 12, 41, 148, 245]
 	
 	arcs = [
-		[0, 1, 1],
-		[0, 2, 4],
-		[1, 2, 2],
-		[1, 3, 6],
-		[2, 3, 3],
+		[0, 12, 1],
+		[0, 41, 4],
+		[12, 41, 2],
+		[12, 148, 6],
+		[41, 148, 3],
 	]
 	
-	startNode = 1
-	dist, path = dijkstraDist(parseNetwork(nodes, arcs), startNode)
+	startNode = 12
+	network = parseNetwork(nodes, arcs)
+	dist, path = dijkstraDist(network, startNode)
 
 	# Loop to print the distance of
 	# every node from source vertex
 	print("Distances")
 	for i in range(len(dist)):
 		if dist[i] == INFINITE:
-			print("{} -> {}: {}".format(startNode, i, "IMPOSSIBLE"))
+			print("{} -> {}: {}".format(startNode, nodes[i], "IMPOSSIBLE"))
 		else:
-			print("{} -> {}: {}".format(startNode, i, dist[i]))
+			print("{} -> {}: {}".format(startNode, nodes[i], dist[i]))
 	
 	print()
 	print("Path")
 	for i in range(len(nodes)):
-		p = getPath(path, startNode, nodes[i]);
+		p = getPath(network, path, startNode, nodes[i]);
 		if len(p) == 0:
 			print("{} -> {}: {}".format(startNode, nodes[i], "IMPOSSIBLE"))
 		else:
