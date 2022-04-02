@@ -10,7 +10,7 @@ def Parsing(s):
     consommation = []
     #Create a dictionnary
     data = {"CoordinateX": Coordonnee[0], "CoordinateY": Coordonnee[1], "noeudStart": noeud[0] , "noeudEnd": noeud[1],
-            "distance": distance, "speed": vitesse, "pente": pente, "consommation" :consommation}
+            "distance": distance, "speed": vitesse, "pente": pente, "consommation": consommation}
     #open the consommation file
     with open("consommation_jeu_de_donnee.txt", 'r') as f:
         for line in f:
