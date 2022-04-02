@@ -1,7 +1,7 @@
 
 def Parsing(sFile):
     #Initialisation variables
-    NombreNoeuds = 0;
+    NombreNoeuds = 0
     Coordonnee = [[], []]
     Coor = 0
     noeud = [[], []]
@@ -21,13 +21,13 @@ def Parsing(sFile):
             if Value != "":
                 #Si Value contient "Arcs"
                 if "Arcs:" in Value:
-                    Coor = 1;
+                    Coor = 1
                     continue
                 if Coor == 0:
                     # Valeur.split(caractère de séparation, nombre de séparation)[indice]
                     Coordonnee[0].append(Value.split(";", 3)[1])
                     Coordonnee[1].append(Value.split(";", 3)[2])
-                    NombreNoeuds = NombreNoeuds + 1;
+                    NombreNoeuds = NombreNoeuds + 1
                 else :
                     noeud[0].append(Value.split(";", 5)[0])
                     noeud[1].append(Value.split(";", 5)[1])
@@ -53,8 +53,8 @@ def RechercheNoeud(CoordonneeX1, CoordonneeY1):
             if(CoordonneeX1 == float(DonneeParsing["CoordinateX"][y])):
                 if(CoordonneeY1 == float(DonneeParsing["CoordinateY"][y])):
 
-                    Noeud = y;
-                break;
+                    Noeud = y
+                break
 
     return Noeud + 1
 
