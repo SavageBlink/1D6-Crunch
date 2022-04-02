@@ -1,5 +1,5 @@
 
-def Parsing():
+def Parsing(sFile):
     #Initialisation variables
     NombreNoeuds = 0;
     Coordonnee = [[], []]
@@ -11,17 +11,16 @@ def Parsing():
     consommation = []
     #Create a dictionnary
     data = {"CoordinateX": Coordonnee[0], "CoordinateY": Coordonnee[1], "noeudStart": noeud[0] , "noeudEnd": noeud[1],
-            "distance": distance, "speed": vitesse, "pente": pente, "consommation": consommation,
-            "NombreNoeuds": NombreNoeuds}
+            "distance": distance, "speed": vitesse, "pente": pente, "consommation": consommation}
     #open the consommation file
-    with open("consommation_jeu_de_donnee.txt", 'r') as f:
+    with open(sFile, 'r') as f:
         for line in f:
             #Récupère la vaaleur de la ligne
             Value = line.strip()            #correspond aux valeurs présentent dans le bloc note
             #Si Value n'est pas une ligne vide
             if Value != "":
                 #Si Value contient "Arcs"
-                if "Arcs" in Value:
+                if "Arcs:" in Value:
                     Coor = 1;
                     continue
                 if Coor == 0:
@@ -43,5 +42,25 @@ def Parsing():
 #    for y in range(0, 25000):
 #        print(distance[y])
     return data
+
+
+def RechercheNoeud(CoordonneeX1, CoordonneeY1):
+
+    DonneeParsing = Parsing("consommation_jeu_de_donnee.txt")
+    NombreNoeuds = len(DonneeParsing["CoordinateX"])
+
+    for y in range(0, NombreNoeuds):
+            if(CoordonneeX1 == float(DonneeParsing["CoordinateX"][y])):
+                if(CoordonneeY1 == float(DonneeParsing["CoordinateY"][y])):
+
+                    Noeud = y;
+                break;
+
+    return Noeud + 1
+
+
+Noeud1 = RechercheNoeud(24.1472, 17.9533)
+#Noeud2 = RechercheNoeud(23.6731, 19.0991)
+print(Noeud1)
 
 
