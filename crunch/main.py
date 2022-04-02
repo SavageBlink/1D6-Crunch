@@ -7,7 +7,7 @@ points_z = [[1,51], [1.2,51.3], [1.23, 51.7]]
 ave_lat = sum(p[0] for p in points_a)/len(points_a)
 ave_lon = sum(p[1] for p in points_a)/len(points_a)
 my_map = folium.Map(location=[ave_lat, ave_lon], zoom_start=9)
-folium.TileLayer('mapquestopen').add_to(my_map)
+#folium.TileLayer('mapquestopen').add_to(my_map)
 
 #add a markers 'a'
 for each in points_a:
@@ -30,8 +30,8 @@ for each in points_z:
     fill_opacity=1))
 
 # add lines
-folium.PolyLine(points_a, color="green", weight=2.5, opacity=1,tooltip="crunch").add_to(my_map)
-folium.PolyLine(points_z, color="blue", weight=2.5, opacity=1,popup="sdfqs").add_to(my_map)
+folium.PolyLine(points_a, color="#ff6a00", weight=2.5, opacity=1,tooltip="crunch").add_to(my_map)
+folium.PolyLine(points_z, color="red", weight=2.5, opacity=1,popup="sdfqs").add_to(my_map)
 
 # Save map
 my_map.save("./index.html")
