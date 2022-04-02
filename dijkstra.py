@@ -113,6 +113,11 @@ def getPath(network, path, startNode, destNode):
 			p.append(destNode)
 			return p
 
+def getDist(network, dist, destNode):
+	for i in range(len(network)):
+		if network[i].vertexNumber == destNode:
+			return dist[i]
+
 #nodes = [node1, node2, ...]
 #arcs = [
 #[node1, node2, cost1],
@@ -125,8 +130,6 @@ def parseNetwork(nodes, arcs):
 	# Loop to create the nodes
 	for i in range(len(nodes)):
 		network.append(Node(nodes[i]))
-	
-	for i in range(len(nodes)):
 		for j in range(len(arcs)):
 			if arcs[j][0] == nodes[i]:
 				network[i].Add_child(nodes.index(arcs[j][1]), arcs[j][2])
