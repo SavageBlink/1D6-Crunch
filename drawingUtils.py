@@ -8,6 +8,9 @@ def drawMap(points_tupple,cons_arcs = None,lower_cons=None,upper_cons=None):
 
     map = folium.Map(location=[ave_lat, ave_lon], zoom_start=9)
 
+    departure = folium.ClickOnMarker()
+    arrival = folium.ClickOnMarker()
+
     blue_icon = folium.CustomIcon(r"asset\icon\blue_icon.png")
     """
     Drawing points from input tupple

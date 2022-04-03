@@ -55,17 +55,12 @@ def getNodeFromCoorParsing(x,y,filename):
             if(X == float(data["CoordinateX"][y])):
                 if(Y == float(data["CoordinateY"][y])):
 
-<<<<<<< HEAD
-                    node = y;
-                break;
-=======
     for y in range(0, NombreNoeuds):
             if(CoordonneeX1 == float(DonneeParsing["CoordinateX"][y])):
                 if(CoordonneeY1 == float(DonneeParsing["CoordinateY"][y])):
 
                     Noeud = y
                 break
->>>>>>> 6a0b205bd0382588f0ac0174f794870157696419
 
     return node + 1"""
 
