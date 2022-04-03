@@ -1,17 +1,16 @@
 import folium
-
+import jinja2
 
 def drawMap(points_tupple,cons_arcs = None,lower_cons=None,upper_cons=None):
 
+    print(points_tupple)
     ave_lat = sum(p[0] for p in points_tupple)/len(points_tupple)
     ave_lon = sum(p[1] for p in points_tupple)/len(points_tupple)
 
     map = folium.Map(location=[ave_lat, ave_lon], zoom_start=9)
 
-    departure = folium.ClickOnMarker()
-    arrival = folium.ClickOnMarker()
 
-    blue_icon = folium.CustomIcon(r"asset\icon\blue_icon.png")
+
     """
     Drawing points from input tupple
     """
@@ -63,14 +62,18 @@ def drawPoints(map,points_tupple,cons_arcs = None,lower_cons=None,upper_cons=Non
 
 def drawLine(map,couple,cons,lower_cons,upper_cons):
 
-    printable_cons = str(cons) + "kWh"
+    printable_cons = str(int(cons)) + "kWh"
+    kwh_conv = 10.74 #1 litre de diesel = 10.74 kWh
+    diesel_litre = cons/kwh_conv
+    printable_diesel = "Soit " + str(int(diesel_litre)) + " litres de diesel"
 
+    popup_content = printable_cons + "\n" + printable_diesel
     if(cons <= lower_cons):
 
         folium.PolyLine(couple,
         color="green",
         tooltip = printable_cons,
-        popup = printable_cons ,
+        popup = popup_content ,
         weight=4.5,
         opacity=1).add_to(map)
 
@@ -79,7 +82,7 @@ def drawLine(map,couple,cons,lower_cons,upper_cons):
         folium.PolyLine(couple,
          color="red",
          tooltip = printable_cons,
-         popup = printable_cons ,
+         popup = popup_content ,
          weight=4.5,
          opacity=1).add_to(map)
 
@@ -88,6 +91,6 @@ def drawLine(map,couple,cons,lower_cons,upper_cons):
         folium.PolyLine(couple,
         color="#ff6a00",
         tooltip = printable_cons,
-        popup = printable_cons ,
+        popup = popup_content ,
         weight=4.5,
         opacity=1).add_to(map)

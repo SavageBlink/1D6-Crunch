@@ -66,7 +66,7 @@ def getNodeFromCoorParsing(x,y,filename):
 
 def getCoordFromNodeParsing(node,filename):
     data = Parsing(filename)
-    return [float(data["CoordinateX"][node]),float(data["CoordinateY"][node])]
+    return [float(data["CoordinateX"][node - 1]),float(data["CoordinateY"][node - 1])]
     """    i = 0
         while(int(data["noeudStart"][i]) != node or int(data["noeudEnd"][i]) != node):
             i+=1"""
