@@ -38,8 +38,27 @@ def drawPoints(map,points_tupple,cons_arcs = None,lower_cons=None,upper_cons=Non
                 tooltip = 'Departure'))
                 """Drawing last marker as Arrival"""
             elif(p_index == len(points_tupple)-1):
+                f_cons = 0
+                for cons in cons_arcs:
+                    f_cons+=cons
+                f_cons = "{:.2f}".format(f_cons)
+                printable_cons = str(f_cons) + "kWh"
+
+                kwh_conv = 10.74 #1 litre de diesel =~ 10.74 kWh
+                eur_conv = 2.14 #1 litre de diesel = 2.14€
+
+                diesel_litre = cons/kwh_conv
+                diesel_eur = diesel_litre * eur_conv
+
+                diesel_litre = "{:.2f}".format(diesel_litre)
+                diesel_eur = "{:.2f}".format(diesel_eur)
+
+                printable_diesel = str(diesel_litre) + " L"
+                printable_eur = str(diesel_eur) + "€"
+
+                popup_content = "Arrival" + "\n" +printable_cons + "\n" + printable_diesel + "\n" + printable_eur
                 map.add_child(folium.Marker(location = point,
-                tooltip = 'Arrival'))
+                popup = popup_content ))
                 """Drawing inner arcs points as red dots"""
             else:
                 map.add_child(folium.CircleMarker(location = point,
@@ -61,19 +80,26 @@ def drawPoints(map,points_tupple,cons_arcs = None,lower_cons=None,upper_cons=Non
                                 folium.PolyLine([point,p_nxt],color="blue",weight=4.5).add_to(map)"""
 
 def drawLine(map,couple,cons,lower_cons,upper_cons):
+    n_cons = "{:.2f}".format(cons)
+    printable_cons = str(n_cons) + "kWh"
+    kwh_conv = 10.74 #1 litre de diesel =~ 10.74 kWh
+    eur_conv = 2.14 #1 litre de diesel = 2.14€
 
-    printable_cons = str(int(cons)) + "kWh"
-    kwh_conv = 10.74 #1 litre de diesel = 10.74 kWh
     diesel_litre = cons/kwh_conv
-    printable_diesel = "Soit " + str(int(diesel_litre)) + " litres de diesel"
+    diesel_eur = diesel_litre * eur_conv
 
-    popup_content = printable_cons + "\n" + printable_diesel
+    diesel_litre = "{:.2f}".format(diesel_litre)
+    diesel_eur = "{:.2f}".format(diesel_eur)
+
+    printable_diesel = str(diesel_litre) + " L"
+    printable_eur = str(diesel_eur) + "€"
+
+    popup_content = printable_cons + "\n" + printable_diesel + "\n" + printable_eur
     if(cons <= lower_cons):
 
         folium.PolyLine(couple,
         color="green",
         tooltip = printable_cons,
-        popup = popup_content ,
         weight=4.5,
         opacity=1).add_to(map)
 
@@ -82,8 +108,7 @@ def drawLine(map,couple,cons,lower_cons,upper_cons):
         folium.PolyLine(couple,
          color="red",
          tooltip = printable_cons,
-         popup = popup_content ,
-         weight=4.5,
+        weight=4.5,
          opacity=1).add_to(map)
 
     if(cons > lower_cons and cons < upper_cons):
@@ -91,6 +116,5 @@ def drawLine(map,couple,cons,lower_cons,upper_cons):
         folium.PolyLine(couple,
         color="#ff6a00",
         tooltip = printable_cons,
-        popup = popup_content ,
         weight=4.5,
         opacity=1).add_to(map)
